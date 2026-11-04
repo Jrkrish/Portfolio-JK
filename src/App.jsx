@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { person, root } from "./fs.js";
+import { allProjects, person, root } from "./fs.js";
 import Desktop from "./os/Desktop.jsx";
 import Dock from "./os/Dock.jsx";
 import MenuBar from "./os/MenuBar.jsx";
@@ -21,6 +21,8 @@ function Shell() {
   useEffect(() => {
     if (locked || started.current) return;
     started.current = true;
+    // Covers are the first thing people browse, so fetch them ahead of time.
+    for (const project of allProjects) new Image().src = asset(project.children.find((c) => c.kind === "image").src);
     // Phones start on the desktop, with no window or notification in the way.
     if (window.innerWidth < 768) return undefined;
     os.openHome();
