@@ -1,0 +1,149 @@
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource/jetbrains-mono/400.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #0a7cff;
+  --text: #1d1d1f;
+  --text-2: #6a6a70;
+  --text-3: #93939a;
+  --line: rgba(0, 0, 0, 0.1);
+  --hover: rgba(0, 0, 0, 0.055);
+  --stripe: rgba(0, 0, 0, 0.028);
+  --selection-soft: rgba(0, 0, 0, 0.1);
+  --seg-on: #fff;
+  --paper: #fff;
+  --viewer: #e9e9ec;
+  --window: rgba(246, 246, 248, 0.86);
+  --titlebar: rgba(236, 236, 240, 0.8);
+  --sidebar: rgba(232, 232, 238, 0.62);
+  --content: #fff;
+  --menu: rgba(244, 244, 247, 0.78);
+  --dock: rgba(255, 255, 255, 0.34);
+  --dock-line: rgba(0, 0, 0, 0.18);
+  --light-off: #d6d6da;
+  --window-ring: rgba(0, 0, 0, 0.14);
+}
+
+:root[data-theme="dark"] {
+  --text: #f4f4f6;
+  --text-2: #a5a5ac;
+  --text-3: #7c7c84;
+  --line: rgba(255, 255, 255, 0.11);
+  --hover: rgba(255, 255, 255, 0.08);
+  --stripe: rgba(255, 255, 255, 0.035);
+  --selection-soft: rgba(255, 255, 255, 0.14);
+  --seg-on: rgba(255, 255, 255, 0.2);
+  --paper: #1f1f22;
+  --viewer: #18181b;
+  --window: rgba(38, 38, 42, 0.86);
+  --titlebar: rgba(48, 48, 53, 0.82);
+  --sidebar: rgba(44, 44, 50, 0.6);
+  --content: #1f1f22;
+  --menu: rgba(44, 44, 49, 0.78);
+  --dock: rgba(40, 40, 46, 0.42);
+  --dock-line: rgba(255, 255, 255, 0.22);
+  --light-off: #55555b;
+  --window-ring: rgba(255, 255, 255, 0.14);
+}
+
+html, body, #root { height: 100%; }
+html { background: #000; }
+
+body {
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter Variable", Inter, system-ui, sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+button { cursor: default; }
+a { cursor: pointer; }
+input, textarea { user-select: text; color: inherit; }
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+input:focus-visible, textarea:focus-visible, [tabindex="0"]:focus-visible { outline: none; }
+
+.scroller::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroller::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+.scroller::-webkit-scrollbar-track { background: transparent; }
+
+.os-menubar {
+  background: rgba(20, 20, 30, 0.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.os-window {
+  background: var(--window);
+  -webkit-backdrop-filter: blur(40px) saturate(1.7);
+  backdrop-filter: blur(40px) saturate(1.7);
+  box-shadow: 0 0 0 0.5px var(--window-ring), 0 8px 26px rgba(0, 0, 0, 0.26);
+  color: var(--text);
+}
+.os-window.is-focused { box-shadow: 0 0 0 0.5px var(--window-ring), 0 22px 70px rgba(0, 0, 0, 0.46); }
+
+.os-titlebar { background: var(--titlebar); border-bottom: 0.5px solid var(--line); }
+.os-sidebar { background: var(--sidebar); }
+.os-content { background: var(--content); border-left: 0.5px solid var(--line); }
+.os-toolbar { background: var(--titlebar); border-bottom: 0.5px solid var(--line); }
+.os-pathbar { border-top: 0.5px solid var(--line); }
+.os-list-head { background: var(--content); box-shadow: 0 0.5px 0 var(--line); }
+
+.os-tool {
+  display: flex;
+  height: 26px;
+  width: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+.os-tool:enabled:hover { background: var(--hover); }
+
+.os-menu, .os-spotlight {
+  background: var(--menu);
+  -webkit-backdrop-filter: blur(36px) saturate(1.8);
+  backdrop-filter: blur(36px) saturate(1.8);
+  box-shadow: 0 0 0 0.5px var(--window-ring), 0 12px 40px rgba(0, 0, 0, 0.32);
+  color: var(--text);
+}
+
+.os-dock {
+  background: var(--dock);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  backdrop-filter: blur(30px) saturate(1.8);
+  border-radius: 22px;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.4), 0 10px 34px rgba(0, 0, 0, 0.3);
+}
+
+.os-tip {
+  background: var(--menu);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 0 0.5px var(--window-ring), 0 3px 10px rgba(0, 0, 0, 0.25);
+  color: var(--text);
+}
+
+.os-widget {
+  color: #fff;
+  background: rgba(20, 16, 40, 0.28);
+  -webkit-backdrop-filter: blur(26px) saturate(1.5);
+  backdrop-filter: blur(26px) saturate(1.5);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.28);
+}
+
+.print-only { display: none; }
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  html, body { background: #fff; overflow: visible; height: auto; }
+  #root { display: none; }
+  .print-only { display: block; }
+}
