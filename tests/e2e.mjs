@@ -245,7 +245,7 @@ const titles = (page) => page.locator("section[data-window]").evaluateAll((els) 
   await page.waitForTimeout(700);
   await shot(page, "33-resume");
   const sheet = await page.locator('section[aria-label="Resume.pdf"]').innerText();
-  check("Resume shows education and no phone number", sheet.includes("CGPA 7.90") && !/|\+91/.test(sheet));
+  check("Resume shows education and no phone number", sheet.includes("CGPA 7.90") && !/\+91|\b\d{10}\b/.test(sheet));
   await page.emulateMedia({ media: "print" });
   const printed = await page.locator(".print-only").isVisible();
   check("Save as PDF prints only the resume", printed && !(await page.locator("#root").isVisible()));
