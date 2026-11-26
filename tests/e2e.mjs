@@ -241,6 +241,8 @@ const titles = (page) => page.locator("section[data-window]").evaluateAll((els) 
   check("Assistant finds a project by tool", /DevPilot/.test(log.split("uses LangGraph?")[1] ?? ""));
   log = await asks("Can I buy you a coffee?");
   check("Assistant points to the coffee page", /buymeacoffee\.com\/jrkrish/.test(log.split("buy you a coffee?")[1] ?? ""));
+  log = await asks("Does he need visa sponsorship?");
+  check("a visa sponsorship question doesn't get the coffee answer", !/buymeacoffee/.test(log.split("visa sponsorship?")[1] ?? ""));
   log = await asks("What is the capital of France?");
   check("Assistant refuses to invent answers", (log.split("capital of France?")[1] ?? "").includes("couldn't find"));
   await shot(page, "31-assistant");

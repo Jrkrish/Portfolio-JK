@@ -119,7 +119,8 @@ const INTENTS = [
     }),
   },
   {
-    test: /\b(coffee|donat\w*|sponsor\w*|tip jar|buy (him|you) a)\b/i,
+    // Not "sponsor": recruiters ask about visa sponsorship.
+    test: /\b(coffee|donat\w*|tip jar|buy (him|you) a)\b/i,
     answer: () => ({
       text: `If something here helped you, you can buy Jayakrishnan a coffee at ${person.coffee.replace(/^https:\/\//, "")}. Never expected, always appreciated.`,
       sources: [fileAt("Contact", "Buy Me a Coffee.webloc")],
