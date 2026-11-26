@@ -11,6 +11,7 @@ export const person = {
   email: "jayakrishxn@gmail.com",
   linkedin: "https://www.linkedin.com/in/krishinfowork/",
   github: "https://github.com/Jrkrish",
+  coffee: "https://buymeacoffee.com/jrkrish",
   // Formspree endpoint carried over from the previous site.
   formEndpoint: "https://formspree.io/f/meoqnznv",
 };
@@ -221,6 +222,7 @@ Open to new opportunities and collaborations.`,
     { kind: "app", name: "Send a Message", app: "mail" },
     link("LinkedIn.webloc", person.linkedin),
     link("GitHub.webloc", person.github),
+    link("Buy Me a Coffee.webloc", person.coffee),
   ]),
 ]);
 

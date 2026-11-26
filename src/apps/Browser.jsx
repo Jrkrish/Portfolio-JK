@@ -6,6 +6,7 @@ import { TrafficLights, useWindow } from "../os/chrome.jsx";
 const bookmarks = [
   ["GitHub", person.github, "All of my public repositories"],
   ["LinkedIn", person.linkedin, "My professional profile"],
+  ["Buy Me a Coffee", person.coffee, "If something here helped you, you can say thanks with a coffee."],
 ];
 
 function linkOf(project) {

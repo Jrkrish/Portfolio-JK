@@ -199,6 +199,20 @@ const titles = (page) => page.locator("section[data-window]").evaluateAll((els) 
   const whole = await page.locator("body").innerText();
   check("the old CGPA is gone", !whole.includes("7.74"));
 
+  // Contact: the coffee link opens a page that leads to the real site
+  await page.getByRole("button", { name: "Go", exact: true }).click();
+  await page.click('[role="menuitem"]:has-text("Contact")');
+  await page.waitForTimeout(500);
+  await page.dblclick('section[aria-label="Contact"] .grid button:has-text("Buy Me a Coffee")');
+  await page.waitForTimeout(600);
+  const coffee = page.locator('section[aria-label="Browser"]');
+  check(
+    "Contact's Buy Me a Coffee link leads to the page",
+    (await coffee.locator('h2:has-text("Buy Me a Coffee")').count()) === 1 &&
+      (await coffee.locator('a[href="https://buymeacoffee.com/jrkrish"][target="_blank"]').count()) === 1,
+  );
+  await shot(page, "34-coffee");
+
   // Assistant: answers, cites, and refuses to invent
   await page.click('[data-dock="assistant"]');
   await page.waitForTimeout(500);
@@ -225,6 +239,8 @@ const titles = (page) => page.locator("section[data-window]").evaluateAll((els) 
   check("Assistant summarises experience", /Flaunch IO/.test(log.split("internships has")[1] ?? ""));
   log = await asks("Which project uses LangGraph?");
   check("Assistant finds a project by tool", /DevPilot/.test(log.split("uses LangGraph?")[1] ?? ""));
+  log = await asks("Can I buy you a coffee?");
+  check("Assistant points to the coffee page", /buymeacoffee\.com\/jrkrish/.test(log.split("buy you a coffee?")[1] ?? ""));
   log = await asks("What is the capital of France?");
   check("Assistant refuses to invent answers", (log.split("capital of France?")[1] ?? "").includes("couldn't find"));
   await shot(page, "31-assistant");

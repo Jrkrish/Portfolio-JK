@@ -119,6 +119,13 @@ const INTENTS = [
     }),
   },
   {
+    test: /\b(coffee|donat\w*|sponsor\w*|tip jar|buy (him|you) a)\b/i,
+    answer: () => ({
+      text: `If something here helped you, you can buy Jayakrishnan a coffee at ${person.coffee.replace(/^https:\/\//, "")}. Never expected, always appreciated.`,
+      sources: [fileAt("Contact", "Buy Me a Coffee.webloc")],
+    }),
+  },
+  {
     test: /\b(cgpa|gpa|grade|marks|degree|college|university|graduat\w*|education|stud(y|ied))\b/i,
     answer: () => ({ text: `${EDUCATION.degree}, ${EDUCATION.college}, ${EDUCATION.place}. ${EDUCATION.status}, with a CGPA of ${EDUCATION.cgpa}.`, sources: [fileAt("Education", "B.Tech Information Technology.md")] }),
   },

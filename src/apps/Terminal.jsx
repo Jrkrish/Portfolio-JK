@@ -70,7 +70,7 @@ export default function Terminal() {
       case "whoami":
         return print(`${person.name}\n${person.role}\n${person.location}\nOpen to new opportunities and collaborations.`);
       case "contact":
-        return print(`Email     ${person.email}\nLinkedIn  ${person.linkedin}\nGitHub    ${person.github}`);
+        return print(`Email     ${person.email}\nLinkedIn  ${person.linkedin}\nGitHub    ${person.github}\nCoffee    ${person.coffee}`);
       case "ls": {
         const path = target(cwd, arg || ".");
         const node = path && resolve(path);
