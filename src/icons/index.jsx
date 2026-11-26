@@ -211,7 +211,7 @@ export const Glyph = {
   person: (p) => <G {...p}><circle cx="8" cy="5" r="3" /><path d="M2.5 14a5.5 5.5 0 0 1 11 0" /></G>,
   disk: (p) => <G {...p}><rect x="1.5" y="3.5" width="13" height="9" rx="1.5" /><path d="M11.5 9.5h.5" /></G>,
   trash: (p) => <G {...p}><path d="M2.5 4.5h11M6 4.5V2.5h4v2M4 4.5l.8 9h6.4l.8-9" /></G>,
-};
+  coffee: (p) => <G {...p}><path d="M2.5 6.5h9V10A3.5 3.5 0 0 1 8 13.5H6A3.5 3.5 0 0 1 2.5 10zM11.5 7.5h1a1.75 1.75 0 0 1 0 3.5h-1M5.5 1.8c-.6.8.6 1.6 0 2.6M8.5 1.8c-.6.8.6 1.6 0 2.6" /></G>,};
 
 // The portfolio's mark: a kolam, the looping line art drawn around a dot grid.
 export function Logo({ size = 16 }) {

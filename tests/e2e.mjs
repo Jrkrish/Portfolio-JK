@@ -41,6 +41,13 @@ const titles = (page) => page.locator("section[data-window]").evaluateAll((els) 
   check("no JB anywhere on the desktop", !/\bJB\b|J\.B\./.test(desktopText));
   check("no GitHub live widget", !/GitHub, live/i.test(desktopText));
   check("profile widget shows the photo", await page.locator('[aria-label="Profile"] img').evaluate((i) => i.complete && i.naturalWidth > 0));
+  {
+    const widget = page.locator('aside[aria-label="Buy me a coffee"]');
+    const qr = await widget.locator('img[src$="coffee-qr.svg"]').evaluate((i) => i.complete && i.naturalWidth > 0);
+    const links = await widget.locator('a[href="https://buymeacoffee.com/jrkrish"][target="_blank"]').count();
+    const fits = await widget.evaluate((w) => [...w.querySelectorAll("*")].every((e) => e.getBoundingClientRect().right <= w.getBoundingClientRect().right + 0.5));
+    check("coffee widget shows the QR code and the link", (await widget.isVisible()) && qr && links === 2 && fits, `qr ${qr}, links ${links}, fits ${fits}`);
+  }
 
   // Launchpad
   await page.click('[data-dock="launchpad"]');

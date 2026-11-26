@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { person, resolve, root } from "../fs.js";
-import { Avatar, NodeIcon } from "../icons/index.jsx";
+import { Avatar, Glyph, NodeIcon } from "../icons/index.jsx";
 import { MENU_H, useIsPhone, useOS } from "./store.jsx";
 
 const ITEMS = ["Projects", "Experience", "Skills", "Education", "Contact", "About Me.md", "Jayakrishnan.jpg", "Resume.pdf"].map((name) => ({
@@ -76,7 +76,7 @@ function ProfileWidget() {
   const os = useOS();
   const [now] = useState(() => new Date());
   return (
-    <aside className="os-widget absolute left-5 top-[18px] hidden w-[300px] rounded-[20px] p-4 lg:block" aria-label="Profile">
+    <aside className="os-widget rounded-[20px] p-4" aria-label="Profile">
       <p className="text-[11px] font-semibold uppercase tracking-wide opacity-70">{now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}</p>
       <div className="mt-2 flex items-center gap-3">
         <Avatar size={68} className="ring-2 ring-white/40" />
@@ -97,6 +97,38 @@ function ProfileWidget() {
         <button type="button" onClick={() => os.openApp("resume")} className="rounded-md bg-white/20 px-3 py-1 text-[12.5px] font-medium hover:bg-white/30">
           Resume
         </button>
+      </div>
+    </aside>
+  );
+}
+
+// The QR code is drawn 37 modules square (tools/make_qr.mjs). Three pixels a
+// module keeps every module whole and is large enough for a phone to read.
+const QR_PX = 37 * 3;
+
+function CoffeeWidget() {
+  const site = person.coffee.replace(/^https:\/\//, "");
+  return (
+    <aside className="os-widget flex items-center gap-3 rounded-[20px] p-3" aria-label="Buy me a coffee">
+      <a href={person.coffee} target="_blank" rel="noreferrer" className="flex-none" title={site}>
+        <img
+          src={`${import.meta.env.BASE_URL}coffee-qr.svg`}
+          alt={`QR code for ${site}`}
+          width={QR_PX}
+          height={QR_PX}
+          className="block rounded-[10px]"
+          style={{ width: QR_PX, height: QR_PX, imageRendering: "pixelated" }}
+        />
+      </a>
+      <div className="min-w-0">
+        <p className="flex items-center gap-1.5 text-[14.5px] font-semibold leading-tight">
+          <Glyph.coffee size={15} />
+          Buy me a coffee
+        </p>
+        <p className="mt-1.5 text-[12px] leading-snug opacity-80">If something here helped you, scan the code or follow the link.</p>
+        <a href={person.coffee} target="_blank" rel="noreferrer" className="mt-1.5 inline-block text-[11.5px] font-semibold underline decoration-white/50 underline-offset-[3px] hover:decoration-white">
+          {site}
+        </a>
       </div>
     </aside>
   );
@@ -217,7 +249,10 @@ export default function Desktop() {
       className="absolute inset-0"
       style={{ top: MENU_H }}
     >
-      <ProfileWidget />
+      <div className="absolute left-5 top-[18px] hidden w-[300px] flex-col gap-3 lg:flex">
+        <ProfileWidget />
+        <CoffeeWidget />
+      </div>
 
       <ul className={phone ? "grid grid-cols-3 justify-items-center gap-3 p-4" : "contents"}>
         {ITEMS.map((item, i) => (
